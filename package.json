@@ -1,21 +1,21 @@
 {
-  "name": "goit-js-hw-10",
+  "name": "goit-js-hw-11",
   "version": "2.0.0",
-  "description": "Этот проект был создан при помощи Parcel. Для знакомства и настройки\r дополнительных возможностей [обратись к документации](https://parceljs.org/).",
-  "homepage": "https://astrix1234.github.io/goit-js-hw-10",
+  "description": "",
+  "homepage": "https://astrix1234.github.io/goit-js-hw-11",
   "scripts": {
     "start": "parcel src/*.html",
-    "build": "parcel build src/*.html --public-url /goit-js-hw-10/"
+    "build": "parcel build src/*.html --public-url /goit-js-hw-11/"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Astrix1234/goit-js-hw-10.git"
+    "url": "git+https://github.com/Astrix1234/goit-js-hw-11.git"
   },
   "keywords": [],
   "author": "Joanna Dobrowolska <dobrowolska.krakow@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Astrix1234/goit-js-hw-10/issues"
+    "url": "https://github.com/Astrix1234/goit-js-hw-11/issues"
   },
   "dependencies": {
     "axios": "^1.4.0",
@@ -33,5 +33,4 @@
     "posthtml-include": "^1.7.4"
   },
   "browserslist": "> 0.5%, last 2 versions, not dead"
-  
 }

@@ -1,77 +1,76 @@
 'use strict';
-console.log('Starting script');
 
 import SlimSelect from 'slim-select';
 import 'slim-select/dist/slimselect.css';
 import Notiflix from 'notiflix';
 import 'notiflix/dist/notiflix-3.2.6.min.css';
-import { fetchBreeds, fetchCatByBreed } from './cat-api';
+import axios from 'axios';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
-const catInfo = document.querySelector('.cat-info');
-console.log('Cat info:', catInfo);
-let select;
-Notiflix.Loading.standard('Loading...', {
-  backgroundColor: 'rgba(0,0,0,0.8)',
-});
+const searchForm = document.querySelector('#search-form');
+const gallery = document.querySelector('.gallery');
+const btnLoadMore = document.querySelector('.load-more');
 
-window.onload = () => {
-  console.log('Window loaded');
-  Notiflix.Loading.standard('Loading data, please wait...', {
-    backgroundColor: 'rgba(0,0,0,0.8)',
-  });
-  fetchBreeds()
-    .then(breeds => {
-      Notiflix.Loading.remove();
-      const breedSelect = document.querySelector('.breed-select');
-      select = new SlimSelect({
-        select: breedSelect,
-        data: breeds.map(breed => ({
-          text: breed.name,
-          value: breed.id,
-        })),
-      });
-      breedSelect.addEventListener('change', event => {
-        console.log('onChange event', event);
-        console.log('onChange event - selected value', event.target.value);
-        displayCatInfo(event.target.value);
-      });
-      console.log('SlimSelect initialized: ', select);
-      console.log('SlimSelect data: ', select.data.getData());
-    })
-    .catch(error => {
-      Notiflix.Loading.remove();
-      Notiflix.Notify.failure(
-        'Oops! Something went wrong! Try reloading the page!'
-      );
+let searchQuestion = '';
+let currentPage = 1;
+
+const fetchImages = async () => {
+  try {
+    const response = await axios.get('https://pixabay.com/api/', {
+      params: {
+        key: '38606414-d1218f221fd8daceb76c83e1a',
+        q: searchQuestion,
+        image_type: 'photo',
+        orientation: 'horizontal',
+        safesearch: true,
+        page: currentPage,
+        per_page: 40,
+      },
     });
+    console.log('response:', response);
+    if (response.data.hits.length === 0) {
+      Notiflix.Notify.failure(
+        'Sorry, there are no images matching your search query. Please try again.'
+      );
+    } else {
+      createImagesGallery(response.data.hits);
+      Notiflix.Notify.success(
+        `Hooray! We found ${response.data.totalHits} images.`
+      );
+      console.log(`Success, we found ${response.data.totalHits} images`);
+      btnLoadMore.style.display = 'block';
+    }
+  } catch (error) {
+    console.log('error:', error);
+  }
 };
+console.log(fetchImages());
 
-function displayCatInfo(breedId) {
-  console.log('About to fetch cat by breed');
-  console.log('displayCatInfo', breedId);
-  Notiflix.Loading.standard('Loading data, please wait...', {
-    backgroundColor: 'rgba(0,0,0,0.8)',
-  });
-  fetchCatByBreed(breedId)
-    .then(cat => {
-      console.log('Fetched cat info', cat);
-      Notiflix.Loading.remove();
-      console.log(cat);
-      catInfo.innerHTML = `
-                <img src="${cat.url}" alt="${cat.breeds[0].name}">
-    <div class="description">
-        <h2>${cat.breeds[0].name}</h2>
-        <p>${cat.breeds[0].description}</p>
-        <p>${cat.breeds[0].temperament}</p>
-    </div>
-            `;
-      console.log(catInfo);
-    })
-    .catch(error => {
-      console.log(error.response);
-      Notiflix.Loading.remove();
-      Notiflix.Notify.failure(
-        'Oops! Something went wrong! Try reloading the page!'
-      );
-    });
-}
+const createImagesGallery = images => {
+  const markup = images
+    .map(
+      image => `<div class="photo-card">
+  <a class="photo-card__link" href="${image.largeImageURL}"><img class="photo-card__image" src="${image.webformatURL}" alt="${image.tags}" loading="lazy" /></a>
+  <div class="info">
+    <p class="info-item">
+      <b>Likes</b>${image.likes}
+    </p>
+    <p class="info-item">
+      <b>Views</b>${image.views}
+    </p>
+    <p class="info-item">
+      <b>Comments</b>${image.comments}
+    </p>
+    <p class="info-item">
+      <b>Downloads</b>${image.downloads}
+    </p>
+  </div>
+</div>`
+    )
+    .join('');
+  gallery.innerHTML = markup;
+  console.log('Show gallery:', gallery);
+  const lightbox = new SimpleLightbox('.gallery a');
+  lightbox.refresh();
+};

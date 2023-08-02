@@ -23,6 +23,7 @@
     "modern-normalize": "^1.1.0",
     "node-fetch": "^3.3.2",
     "notiflix": "^3.2.6",
+    "simplelightbox": "^2.14.1",
     "slim-select": "^2.6.0"
   },
   "devDependencies": {

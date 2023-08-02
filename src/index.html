@@ -1,17 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Homework 10</title>
-    <link rel="stylesheet" href="./css/common.css" />
-  </head>
-  <body>
-    <select class="breed-select"></select>
-    <!-- <p class="loader">Loading data, please wait...</p> -->
-    <!-- <p class="error">Oops! Something went wrong! Try reloading the page!</p> -->
-    <div class="cat-info"></div>
 
-    <script src="./js/index.js" type="module"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Homework 11</title>
+  <link rel="stylesheet" href="./css/common.css" />
+</head>
+
+<body>
+  <form class="search-form" id="search-form">
+    <input type="text" name="searchQuery" autocomplete="off" placeholder="Search images..." />
+    <button type="submit">
+      <svg class="icon-search" width="20" height="20">
+        <use href="images/loupe.svg#icon-search"></use>
+      </svg>
+    </button>
+  </form>
+
+  <div class="gallery"></div>
+
+  <button type="button" class="load-more">Load more</button>
+
+  <script src="./js/index.js" type="module"></script>
+</body>
+
 </html>

@@ -1,5 +1,12 @@
+:root {
+  --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  --animation-duration: 250ms;
+}
+
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
@@ -10,22 +17,109 @@ body {
   background-color: #fafafa;
   color: #212121;
   line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 img {
   display: block;
-  max-width: 50vw;
-  margin-top: 20vh;
+  max-width: 100%;
 }
 
-.cat-info {
+.search-form {
+  background-color: aqua;
+  height: 80px;
+  width: 100vw;
   display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
-.description {
+.search-form input {
+  height: 35px;
+  width: 300px;
+  outline: none;
+  border: none;
+  font-size: 16px;
+}
+
+.search-form button {
+  width: 35px;
+  height: 35px;
+  border: none;
+  transition: background-color var(--animation-duration) var(--timing-function);
+}
+
+.search-form button:hover,
+.search-form button:focus {
+  cursor: pointer;
+}
+
+.load-more {
+  height: 35px;
+  font-size: 16px;
+  padding: 0 20px;
+  background-color: aqua;
+  border: none;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.load-more:hover,
+.load-more:focus {
+  cursor: pointer;
+  background-color: rgb(28, 212, 212);
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px 10px;
+  width: 1190px;
+  margin-top: 20px;
+}
+
+.photo-card {
+  position: relative;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+  transition: transform var(--animation-duration) var(--timing-function);
+}
+
+.photo-card:hover {
+  transform: scale(1.03);
+}
+
+.photo-card__image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.photo-card__link {
+  display: block;
+  text-decoration: none;
+  height: 180px;
+  width: 290px;
+}
+
+.photo-card__link:hover {
+  cursor: zoom-in;
+}
+
+.info {
+  display: flex;
+  justify-content: space-around;
+  font-size: 12px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.info-item {
   display: flex;
   flex-direction: column;
-  width: 45vw;
-  margin-top: 20vh;
-  margin-left: 5vw;
+  align-items: center;
 }

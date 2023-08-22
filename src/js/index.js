@@ -19,7 +19,6 @@ let searchQuestion = '';
 btnLoadMore.style.display = 'none';
 
 const fetchImages = async () => {
-  gallery.innerHTML = '';
   try {
     const response = await axios.get('https://pixabay.com/api/', {
       params: {
@@ -85,7 +84,7 @@ const createImagesGallery = images => {
 </div>`
     )
     .join('');
-  gallery.innerHTML = markup;
+  gallery.innerHTML += markup;
   console.log('Show gallery:', gallery);
   const lightbox = new SimpleLightbox('.gallery a');
   lightbox.refresh();
